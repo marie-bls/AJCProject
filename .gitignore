@@ -1,0 +1,3 @@
+#ignorer app settings
+appsettings.Development.json
+appsettings.json
