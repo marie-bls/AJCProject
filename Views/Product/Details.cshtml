@@ -1,0 +1,52 @@
+﻿@model AjcProject.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--Affichage du nom du produit-->
+<div>
+
+    <h1>@Model.ProductName</h1>
+
+</div>
+
+<!--Fiche detail du produit-->
+<div class="row">
+
+    <!--Affichage de l'image-->
+    <div class="col-auto">
+        <img src="/Catalog/Images/@Model.ImagePath"
+             style="border: solid; height: 300px; max-width: 400px" alt="@Model.ProductName" onerror="this.style.display='none'">
+    </div>
+
+    <!--Affichage de la description, du prix et la reference du produit-->
+    <div class="col-auto">
+        <b>Description:</b><br />
+        <p style="font-size: 15px; max-width: 480px">@Model.Description</p>
+        <br />
+        <br />
+        <span><b>Prix:</b>&nbsp; @String.Format("{0:c}", @Model.UnitPrice)</span>
+        <br />
+        <br />
+        <span><b>Référence (Product Number) :</b>&nbsp;@Model.ProductId</span>
+        <br />
+        <br />
+        <div class="row m-1">
+            <!--Génération du bouton commander avec l'ID du produit-->
+            <div class="col-md-5 p-1">
+                <a asp-controller="Panier" asp-action="AddProduct" asp-route-id="@Model.ProductId"
+                   class="btn btn-success">Commander ce service</a>
+            </div>
+
+            <!--Génération du bouton retour vers la liste de catalogue -->
+            <div class="col-md-4 p-1">
+                <a class="btn btn-card" asp-controller="Product" asp-action="Index">Retour</a>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <p>© 2022 - Cloud Services Ordering Platform</p>
+</footer>

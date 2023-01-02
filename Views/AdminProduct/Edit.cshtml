@@ -1,0 +1,82 @@
+﻿@model AjcProject.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var error = ViewData["error"];
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger" disabled></div>
+            <input type="hidden" asp-for="ProductId" />
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ImagePath" class="control-label"></label>
+                @*l'attribut image permet de n'accepter que des fichiers images dans l'explorateur de fichiers*@
+                <input asp-for="ImagePath" class="form-control" type="file" accept="image/*" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            @{
+
+                if ((string)error != "")
+                {
+                    <div class="alert-danger align-middle">
+                        @ViewData["error"]
+                    </div>
+                }
+            }
+
+            <div class="form-group">
+                @{
+                    if (Model.ImagePath != null)
+                    {
+                        <img alt="@Html.DisplayFor(modelItem => Model.ProductName)"
+                         class="card-img-top" src="/Catalog/Images/@Model.ImagePath">
+                    }
+                }
+
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,73 @@
+﻿@model AjcProject.Models.Order
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details de la Commande  Numero :@Html.DisplayFor(model => model.OrderId)</title>
+</head>
+<body>
+
+    <h4>Details de la Commande  Numero :@Html.DisplayFor(model => model.OrderId)</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mb-2">
+                @Html.DisplayNameFor(model => model.FirstName) : @Html.DisplayFor(model => model.FirstName)
+            </div>
+            <div class="col-md-6">
+                @Html.DisplayNameFor(model => model.LastName) : @Html.DisplayFor(model => model.LastName)
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-6">
+                @Html.DisplayNameFor(model => model.Address) : @Html.DisplayFor(model => model.Address)
+            </div>
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.City)   :    @Html.DisplayFor(model => model.City)
+            </div>
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.PostalCode)    :    @Html.DisplayFor(model => model.PostalCode)
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.State)   :    @Html.DisplayFor(model => model.State)
+            </div>
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Country)    :     @Html.DisplayFor(model => model.Country)
+            </div>
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Phone) :  @Html.DisplayFor(model => model.Phone)
+            </div>
+            <div class="col-md-3">
+                @Html.DisplayNameFor(model => model.Email) : @Html.DisplayFor(model => model.Email)
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-md-12">
+                @Html.DisplayNameFor(model => model.PaymentTransactionId) : @Html.DisplayFor(model => model.PaymentTransactionId)
+            </div>
+        </div>
+       
+
+       @await Html.PartialAsync("_ordersDetails", Model.OrderDetails)
+                    
+        <div class="row mb-2">
+            <div class="col-md-6">
+                @Html.DisplayNameFor(model => model.OrderDate) : @Html.DisplayFor(model => model.OrderDate)
+            </div>
+            <div class="col-md-6">
+                @Html.DisplayNameFor(model => model.Total) : @String.Format("{0:c}", Model.Total)
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</body>
+</html>

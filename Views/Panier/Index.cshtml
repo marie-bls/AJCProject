@@ -1,0 +1,91 @@
+﻿@model List<AjcProject.Models.CartItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<form method="post" asp-controller="Panier" asp-action="Recalculer">
+    <h1 class="text-primary">Votre panier :</h1>
+    <div class="container-fluid">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="text-center">
+                        <label for="CartId">ID</label>
+                    </th>
+                    <th scope="col">
+                        <label for="ProductName">Produit</label>
+                    </th>
+                    <th scope="col">
+                        <label for="UnitPrice">Tarif</label>
+                    </th>
+                    <th scope="col">
+                        <label for="Quantity">Quantité</label>
+                    </th>
+                    <th scope="col">
+                        <label for="UnitPrice">Prix Total</label>
+                    </th>
+                    <th scope="col">
+                        <label>Supprimer</label>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+
+                    <tr>
+                        @Html.HiddenFor(m => m[i].CartId)
+                        @Html.HiddenFor(m => m[i].ItemId)
+                        @Html.HiddenFor(m => m[i].ProductId)
+
+                        <td class="text-center">
+                            @Html.DisplayFor( m => m[i].Product.ProductId)
+
+                        <td>
+                            @Html.DisplayFor(m => m[i].Product.ProductName)
+                        </td>
+                        <td>
+                            @String.Format("{0:c}",Model[i].Product.UnitPrice)
+                        </td>
+                        <td class="text-center">
+                                @Html.TextBoxFor(m => m[i].Quantity, new { style = "width: 40px;" })
+                        </td>
+                        <td>
+                            @String.Format("{0:c}", Model[i].PrixTotal)
+                        </td>
+                        <td class="text-center">
+                                @Html.CheckBoxFor(m => m[i].ToDelete, new { style = "height: 30px; width: 30px;" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="p-2">
+            <span id="MainContent_LabelTotalText">
+                Montant Total :
+            </span>
+            <strong>
+                <span id="MainContent_lblTotal">@String.Format("{0:c}",ViewData["MontantTotal"])</span>
+            </strong>
+        </div>
+        <div class="row">
+            <div class="col-auto mr-auto">
+                <input type="submit" name="recalculer" value="Recalculer" id="maincontent_updatebtn" class="btn btn-primary">
+            </div>
+            <div class="col-auto">
+                <a class="btn btn-primary" href="/Product">Continuer mes achats</a>
+            </div>
+            <div class="col-auto">
+                @{
+                    if ((bool)ViewData["btnVisible"])
+                    {
+                        <a class="btn btn-success" asp-controller="Order" asp-action="Index" asp-route-idPanier="@ViewData["id"]">
+                            Valider
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</form>

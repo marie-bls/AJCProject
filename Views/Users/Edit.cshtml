@@ -1,0 +1,51 @@
+﻿@model AjcProject.Areas.Identity.Data.ApplicationUser
+
+<div>
+    <h2 class="mt-3 mb-3">Modification de l'utilisateur</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label"></label>
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="flex-column">
+                    <div class="flex-column">
+                        <label asp-for="LockoutEnabled" class="control-label"> Activation du blocage</label>
+                        <input asp-for="LockoutEnabled" type="checkbox" />
+                        <span asp-validation-for="LockoutEnabled" class="text-danger"></span>
+                    </div>                   
+                    <div class="flex-column mt-3">
+                        <label asp-for="LockoutEnd" class="control-label">Date limite de blocage</label>
+                        <input asp-for="LockoutEnd" type="date" />
+                        <span asp-validation-for="LockoutEnd" class="text-danger"></span>
+                    </div>                    
+                </div>
+                
+                <div class="form-group mt-3">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a class="ml-3" asp-action="Index">Retourner à la liste</a>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>

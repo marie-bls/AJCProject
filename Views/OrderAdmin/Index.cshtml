@@ -1,0 +1,55 @@
+﻿@model IEnumerable<AjcProject.Models.Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body>
+    <h1 class="text-center">Liste Des Commandes</h1>
+    <div class="row mb-2">
+        @foreach (var item in Model.Reverse())
+        {
+            <div class="col-xl-3 col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <img src="~/Images/notepad.png"
+                             alt=""
+                             style="width: 45px; height: 45px"
+                             class="rounded-circle" />
+                            <div class="ms-3">
+                                <p class="fw-bold mb-1">
+                                    @Html.DisplayNameFor(model => model.OrderId)
+                                    :
+
+                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                </p>
+                                <p class="fw-bold mb-1" style="min-height:48px">
+                                    @Html.DisplayNameFor(model => model.Username)
+                                    :
+                                    @Html.DisplayFor(modelItem => item.Username)
+                                </p>
+
+                                <p class="text-muted mb-0">
+                                    @Html.DisplayNameFor(model => model.OrderDate)
+                                    :
+                                    @Html.DisplayFor(modelItem => item.OrderDate)
+                                </p>
+                                <a class="btn btn-primary"  asp-action="Details" asp-route-id="@item.OrderId">
+                                    Details
+                                 </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

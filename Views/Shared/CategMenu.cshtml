@@ -1,0 +1,29 @@
+﻿@*Dépendances pour request SQL*@
+@using System.Linq
+@using System.Threading.Tasks
+
+@*Injection du context de la base de donnée*@
+@inject AjcProject.Models.AjcProjectDbContext _dbContext
+@{
+    @*Creation de la liste contenant les categories de produits*@
+
+    var list = _dbContext.Categories.OrderBy(p => p.CategoryName).ToList();
+
+    @*Variable utilise pour ne pas la balise Span lors de la premiere iteration de la boucle*@
+    var count = 1;
+}
+@*Boucle ajoutant au html les noms des categories*@
+@foreach (var item in list)
+{
+
+    @if (count > 1)
+    {
+        <span> | </span>
+    }
+    <a asp-controller="Product" asp-action="Index" asp-route-Searchcategory="@item.CategoryName">
+        @Html.DisplayFor(modelItem => item.CategoryName)
+    </a>
+
+    count++;
+}
+

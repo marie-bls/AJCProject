@@ -1,0 +1,141 @@
+﻿@model AjcProject.Models.Order ;
+
+@{
+    ViewData["Title"] = "Order Page";
+    double? price = 0;
+}
+
+
+    <h1>Synthèse de votre commande :</h1>
+    <h3>Services commandés :</h3>
+
+<div class="text-center">
+    <form method="post" asp-controller="Order" asp-action="Checkout" asp-route-idPanier=@ViewData["CartID"]>
+        <input type="hidden" asp-for="OrderId"  value=@Model.OrderId />
+        <input type="hidden" asp-for="Username" value=@Model.Username />
+        <input type="hidden" asp-for="Email" value=@Model.Email />
+        <input type="hidden" asp-for="Total" value=@Model.Total />
+        @Html.HiddenFor(m => Model.OrderDate)
+
+        <div>
+            <div class="pl-5">
+                <table class="tablelarge " cellspacing="0" cellpadding="10" rules="all"
+                       style="border-color:#317EAC;border-width:2px;border-style:solid;border-collapse:collapse;">
+
+                    <thead>
+                        <tr>
+                            <th>
+                                <label for="CartId">ID</label>
+                            </th>
+                            <th>
+                                <label for="ProductName">Service</label>
+                            </th>
+                            <th>
+                                <label for="UnitPrice">Prix unitaire</label>
+                            </th>
+                            <th>
+                                <label for="Quantity">Nombre</label>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (OrderDetail item in Model.OrderDetails)
+                        {
+                            <tr>
+                                @Html.HiddenFor(m => item.OrderDetailId)
+                                @Html.HiddenFor(m => item.OrderId)
+                                @Html.HiddenFor(m => item.ProductId)
+                                <td style="width:10%;">
+                                    @Html.DisplayFor(m => item.ProductId)
+                                </td>
+                                <td style="width:50%;">
+                                    @Html.DisplayFor(m => item.ProductName)
+                                </td>
+                                <td style="width:15%;">
+                                    @String.Format("{0:c}", item.UnitPrice)
+                                </td>
+                                <td style="width:15%;" class="text-center">
+                                    @Html.DisplayFor(m => item.Quantity)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table cellspacing="0" cellpadding="10" id="MainContent_ShipInfo" style="border-style:None;border-collapse:collapse;">
+                <tr>
+                    <td>&nbsp;</td>
+                    <td align="left">
+                        <div class="adressContainer">
+                            <h3 style="color: #317EAC;">Addresse de livraison:</h3>
+                            <br />
+                            <div class="row" style="display: flex;justify-content: flex-start; align-items: center;padding: 15px;">
+                                <div id="label">
+                                    <label asp-for="FirstName" class="control-label" style="font-weight:bold;">Prénom:</label>
+                                </div>
+                                <div>
+                                    <input asp-for="FirstName" />
+                                    <span asp-validation-for="FirstName" class="text-danger" value=@Model.FirstName></span>
+                                </div>
+                                <div id="label">
+                                    <label asp-for="LastName" class="control-label" style="font-weight:bold;">Nom:</label>
+                                </div>
+                                <div>
+                                    <input asp-for="LastName" />
+                                    <span asp-validation-for="LastName" class="text-danger" value=@Model.LastName></span>
+                                </div>
+                            </div>
+                            <div class="row" style="display: flex;justify-content: flex-start; align-items: center;padding: 15px;">
+                                <div id="label">
+                                    <label asp-for="Address" class="control-label" style="font-weight:bold;">Adresse:</label>
+                                </div>
+                                <div>
+                                    <input asp-for="Address" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 5px; display: flex;justify-content: flex-start; align-items: center;padding: 15px;">
+                                <div id="label">
+                                    <label asp-for="City" class="control-label" style="font-weight:bold;">Ville:</label>
+                                </div>
+                                <div>
+                                    <input asp-for="City" />
+                                    <span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                                <div id="label">
+                                    <label asp-for="Country" class="control-label" style="font-weight:bold;">Pays:</label>
+                                </div>
+                                <div>
+                                    <input asp-for="Country" />
+                                    <span asp-validation-for="Country" class="text-danger"></span>
+                                </div>
+                                <div id="label">
+                                    <label asp-for="PostalCode" class="control-label" style="font-weight:bold;">Code postal:</label>
+                                </div>
+                                <div>
+                                    <input asp-for="PostalCode" />
+                                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="totalContainer">
+
+                            <div class="priceContainer">
+                                <h3 style="color: #317EAC;">Montant Total:</h3>
+                                <div class="price" style="font-size: 20px; font-weight: bold;">
+                                    @String.Format("{0:c}", Model.Total)
+                                </div>
+                            </div>
+                            <div>
+                                <input type="submit" name="ctl00$MainContent$ShipInfo$CheckoutConfirm" value="Confirmer ma commande" id="MainContent_ShipInfo_CheckoutConfirm" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>

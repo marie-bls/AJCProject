@@ -1,0 +1,67 @@
+﻿<head>
+    <link rel="stylesheet" href="~/css/Checkout.css" type="text/css"/>
+</head>
+
+@model AjcProject.Models.Order ;
+
+@{
+    ViewData["Title"] = "Confirmation de commande";
+}
+<h1 class="pageTitle">@ViewData["Title"]</h1>
+
+<div>
+    <div class="containerCheck">
+        <h3 class="paymentTitle">Le règlement de votre commande a été effectué avec succès utilisant votre moyen de paiement enregistré</h3>
+        <p></p>
+        <hr />
+        <h3 class="paymentId">Payment Transaction ID:</h3> <span>@Model.PaymentTransactionId</span>
+        <p></p>
+        <hr />
+        <h3 class="thanks">NEOS-SDI vous remercie pour votre confiance !</h3>
+        <p></p>
+    </div>
+
+    <hr />
+
+    <div class="containerAdress">
+        <h3 class="adressTitle" style="font-size: 35px; text-decoration: underline;">Adresse de livraison:</h3>
+            <div class="row" style="display: flex; align-items: center; margin-left: 10px;">
+                <h3 style="color: #154584;">Nom: </h3>
+                <h4 style="margin-left: 10px; color: #40758C;">@Model.LastName</h4>
+                <h3 style="color: #154584;">Prénom: </h3>
+                <h4 style="margin-left: 10px; color: #40758C;">@Model.FirstName</h4>
+            </div>
+            <div class="row" style="display: flex; align-items: center; margin-left: 10px;">
+                <h3 style="color: #154584;">Adresse: </h3>
+                <h4 style="margin-left: 10px; color: #40758C;">@Model.Address</h4>
+            </div>
+            <div 
+                class="row" style="display: flex; align-items: center; margin-left: 10px;">
+                <h3 style="color: #154584;">Ville: </h3>
+                <h4 style="margin-left: 10px; color: #40758C;">@Model.City  </h4>
+                <h3 style="color: #154584;">Pays: </h3>
+                <h4 style="margin-left: 10px; color: #40758C;">@Model.Country  </h4>
+                <h3 style="color: #154584;">Code Postal: </h3>
+                <h4 style="margin-left: 10px; color: #40758C;">@Model.PostalCode  </h4>
+            </div>
+    </div>
+
+    <hr />
+
+    <div>
+        <a class="nav-link-order"
+           style="text-decoration: none;"
+           asp-area=""
+           asp-controller="Home"
+           asp-action="Index"
+        >
+            Continuer ma decouverte
+        </a>
+    </div>   
+
+    <hr />
+
+    <footer>
+        <p>&copy; 2022 - Cloud Services Ordering Platform</p>
+    </footer>
+</div>

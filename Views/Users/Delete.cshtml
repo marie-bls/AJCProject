@@ -1,0 +1,39 @@
+﻿@model AjcProject.Areas.Identity.Data.ApplicationUser
+
+<h3>Attention, vous êtes sur le point de supprimer un utilisateur, êtes vous sûr ?</h3>
+<div>
+    <hr />
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">Id</th>
+                <td>@Model.Id</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th scope="row">First Name</th>
+                <td>@Model.FirstName</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th scope="row">Last Name</th>
+                <td>@Model.LastName</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <tr>
+                <th scope="row">Email</th>
+                <td>@Model.Email</td>
+            </tr>
+        </tbody>
+    </table>
+
+   
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Retourner à la liste</a>
+    </form>
+</div>

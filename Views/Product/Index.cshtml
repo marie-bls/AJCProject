@@ -1,0 +1,80 @@
+﻿@model IEnumerable<AjcProject.Models.Product>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<Category> ListCategory = ViewData["ListCategory"] as IEnumerable<Category>;
+
+}
+
+<h4>@ViewData["category"] </h4>
+
+<!--Formulaire de recherche-->
+<form asp-controller="Product" asp-action="Index" method="get">
+    <p class="h6">
+        <div class="row shadow p-3 rounded">
+
+            <!--Espace de recherche par Nom-->
+            <div class="col-auto  ">
+                Nom du produit :  <input type="text" name="SearchString" style=" height:2rem" />
+            </div>
+
+            <!--Espace de recherche par Categories-->
+            <div class="col-auto ">
+                Catégories :  <select id="inputState" name="Searchcategory" style=" height:2rem">
+                    <option selected>Toutes les catégories</option>
+                    @foreach (var item in ListCategory)
+                    {
+                        <option>@Html.DisplayFor(modelItem => item.CategoryName)</option>
+                    }
+                </select>
+            </div>
+
+            <!--Espace de recherche par Prix max-->
+            <div class="col-auto ">
+                Prix max :  <input type="number" name="SearchNombreMax" size="10" style="width:5rem ;height:2rem" />
+            </div>
+
+            <!--Envoi du formulaire-->
+            <div class="col-auto ">
+                <input type="submit" value="Rechercher" class="btn btn-card m-0 p-0 text-center " style=" height:2rem; width:7rem" />
+            </div>
+        </div>
+    </p>
+</form>
+
+<!-- espace les cards équitablement -->
+<div class="row" style="justify-content:space-evenly">
+
+    <!--Creation de la boucle géneration des cartes produits-->
+    @foreach (var item in Model)
+    {
+        <!-- ajustement automatique des cards en fonction de la taille de l'écran -->
+        <div class="col-xs-12 col-sm-6 col-ms-3 col-lg-3">
+
+            <!--Creation de la Carte de produit-->
+            <div class="card shadow p-2 mb-5 rounded"  style="min-height: 80px">
+
+                <!--Insertion image-->
+                <div class="card-img-top text-center">
+                    <img class="img-fluid" src="/Catalog/Images/@item.ImagePath" onerror="this.style.display='none'" style="height:80px" />
+                </div>
+               
+                <!--Lien vers la page detail du produit-->
+                <div class="card-body text-center">
+                    <a asp-action="Details" asp-route-id="@item.ProductId">
+                        <h6 class="card-title" style="min-height: 40px">@Html.DisplayFor(modelItem => item.ProductName)</h6>
+                    </a>
+
+                    <!--Affichage du prix-->
+                    <p class="card-text">
+                        <b>Prix: </b>@String.Format("{0:c}", item.UnitPrice)
+                    </p>
+                    <!--Lien vers le panier avec l'id du produit-->
+                    <a class="btn btn-card" asp-controller="Panier" asp-action="AddProduct" asp-route-id="@item.ProductId">
+                        Commander ce service
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

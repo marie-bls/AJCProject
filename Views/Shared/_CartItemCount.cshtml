@@ -1,0 +1,9 @@
+﻿@using System.Linq
+@using System.Threading.Tasks
+@inject AjcProject.Models.AjcProjectDbContext _dbContext
+@{
+    var list = _dbContext.CartItems.ToList();
+    ViewData["countTotal"] = list.Sum(item => item.Quantity);
+}
+<a class="nav-link text-light" asp-area="" asp-controller="Panier" asp-action="Index">Panier(@ViewData["countTotal"])</a>
+
